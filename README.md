@@ -1,7 +1,9 @@
 # Minimal BMN Matrix Quantum Mechanics
 Variational Quantum Monte Carlo with Block Autoregressive Flow Ansatz for Minimal BMN Matrix Quantum Mechanics. 
 
-The code is tested on Python 3.7.8, TensorFlow 2.3.1 with TensorFlow Probability 0.11.1. 
+The code is tested on 
+- Python 3.7.8, TensorFlow 2.3.1, TensorFlow Probability 0.11.1
+- Python 3.6.9, TensorFlow 2.6.0, TensorFlow Probability 0.14.0 (on GPU from `Dockerfile`)
 
 Run `python demo.py` to start training a variational wavefunction for the minimal BMN model. 
 Change parameters `N`, `l` in `demo.py` for different matrix sizes and couplings, `alpha` for different hidden-to-visible ratios in block autoregressive flows.
