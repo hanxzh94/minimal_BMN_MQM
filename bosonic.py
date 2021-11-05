@@ -8,15 +8,15 @@ import math
 
 
 # problem parameters
-N = 2
-l = 1.0
+N = 4
+l = 0.2
 alpha = 20
 g, m = math.sqrt(l / N), 1.0
 algebra = MatrixModel(SU(N), 2, 0)
 wavefunc = BlockAutoregressiveWavefunction(algebra.dim_b, algebra.dim_f, alpha=alpha)
 sampler = BlockAutoregressiveSampler(algebra.dim_b, algebra.dim_f)
 # observables
-batch_size = 200
+batch_size = 256
 hamil = minimal_BMN_energy(algebra, g, m, bosonic_only=True)
 gauge = casimir(algebra, SU(N))
 rotation = group_action(algebra, SO2(), tf.zeros((batch_size, 1)))
@@ -32,7 +32,7 @@ minimize(wavefunc, hamil + c * gauge, obs, sampler, lr, optimizer, batch_size=ba
 for o in obs:
     print("Evaluating " + o)
     evaluate(wavefunc, sampler, obs[o], 1_000_000, True, filename=filename)
-    evaluate(wavefunc, sampler, obs[o], 1_000_000, False, filename=filename)
+    # evaluate(wavefunc, sampler, obs[o], 1_000_000, False, filename=filename)
     print("Gauge evaluating " + o)
     gauge_evaluate(wavefunc, sampler, obs[o], 1_000_000, algebra, SU(N), True, filename=filename)
-    gauge_evaluate(wavefunc, sampler, obs[o], 1_000_000, algebra, SU(N), False, filename=filename)
+    # gauge_evaluate(wavefunc, sampler, obs[o], 1_000_000, algebra, SU(N), False, filename=filename)
