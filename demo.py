@@ -8,9 +8,9 @@ import math
 
 
 # problem parameters
-N = 2
-l = 1.0
-alpha = 1
+N = 4
+l = 0.2
+alpha = 20
 g, m = math.sqrt(l / N), 1.0
 algebra = MatrixModel(SU(N), 2, 1) # SU(N) matrices two bosonic + one fermionic
 # dim_b: number of bosonic variables: (N^2 - 1) * # bosonic matrices
@@ -19,7 +19,7 @@ algebra = MatrixModel(SU(N), 2, 1) # SU(N) matrices two bosonic + one fermionic
 wavefunc = BlockAutoregressiveWavefunction(algebra.dim_b, algebra.dim_f, alpha=alpha)
 sampler = BlockAutoregressiveSampler(algebra.dim_b, algebra.dim_f)
 # observables
-batch_size = 200
+batch_size = 256
 hamil = minimal_BMN_energy(algebra, g, m, bosonic_only=False) # set bosonic_only to True if you want the bosonic model
 num = fermion_number(algebra)
 gauge = casimir(algebra, SU(N))
