@@ -144,7 +144,7 @@ def _sampler_step_with_wavefunc(wavefunc, hamil, sampler, optimizer, batch_size)
     optimizer.apply_gradients(zip(gradients, variables))
     return loss
 
-def minimize(wavefunc, hamil, obs_dict, sampler, lr, optimizer, lr_max=1e-3, lr_min=1e-5, batch_size=100, max_epochs=1000, num_iters=1000, thres=4, filename=""):
+def minimize(wavefunc, hamil, obs_dict, sampler, lr, optimizer, lr_min=1e-5, batch_size=100, max_epochs=1000, num_iters=1000, thres=4, filename=""):
     """Minimizes hamil of the wavefunc and the KL divergence between the wavefunc and the sampler.
 
     The algorithm starts with lr = lr_max, and lr -> lr / 2 after 10 times no loss improvement until lr < lr_min. In each epoch, the optimizer takes num_iters iterations, 
@@ -159,7 +159,7 @@ def minimize(wavefunc, hamil, obs_dict, sampler, lr, optimizer, lr_max=1e-3, lr_
         sampler (Sampler): the Monte Carlo sampler
         lr (scalar): the current learning rate
         optimizer (Optimizer): the optimizer to use
-        lr_max, lr_min (float): the starting and ending learning rates
+        lr_min (float): the ending learning rates
         batch_size (int): the number of samples in each iteration
         max_epochs (int): the maximal number of epochs
         num_iters (int): the number of iterations in each epoch
@@ -169,7 +169,6 @@ def minimize(wavefunc, hamil, obs_dict, sampler, lr, optimizer, lr_max=1e-3, lr_
     Return:
         last_loss (float): the loss of the last epoch
     """
-    lr.assign(lr_max)
     last_loss = 1e9
     tot_fail = 0
     loss_sampler = 1e9
