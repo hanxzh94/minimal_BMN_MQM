@@ -8,7 +8,7 @@ import math
 
 
 # problem parameters
-N = 4
+N = 11
 l = 0.2
 alpha = 20
 g, m = math.sqrt(l / N), 1.0
@@ -16,7 +16,7 @@ algebra = MatrixModel(SU(N), 2, 0)
 wavefunc = BlockAutoregressiveWavefunction(algebra.dim_b, algebra.dim_f, alpha=alpha)
 sampler = BlockAutoregressiveSampler(algebra.dim_b, algebra.dim_f)
 # observables
-batch_size = 256
+batch_size = 512
 hamil = minimal_BMN_energy(algebra, g, m, bosonic_only=True)
 gauge = casimir(algebra, SU(N))
 rotation = group_action(algebra, SO2(), tf.zeros((batch_size, 1)))
